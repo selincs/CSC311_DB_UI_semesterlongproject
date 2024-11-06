@@ -76,13 +76,14 @@
 
 }
 
-.table-row-cel:filled .cell{
-    -fx-border-width: 0.6;
+.table-row-cell:filled .cell {
+    -fx-border-width: 0.3;
 }
 
-.table-view-cell:empty {
-    -fx-background-color: #FF0000;
+.table-row-cell:empty .cell {
     -fx-border-width: 0.0;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .table-view:focused .table-row-cell:selected .table-cell {
