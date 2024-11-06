@@ -66,6 +66,7 @@
   -fx-border-color: #29292D;
   -fx-text-fill: black;
   -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0.0;
 
 }
 .table-row-cell:selected {
@@ -74,6 +75,16 @@
 
 
 }
+
+.table-row-cel:filled .cell{
+    -fx-border-width: 0.3;
+}
+
+.table-view-cell:empty {
+    -fx-background-color: #FF0000;
+    -fx-border-width: 0.0;
+}
+
 .table-view:focused .table-row-cell:selected .table-cell {
     -fx-background-color: lightBlue;
     -fx-text-fill: grey;
