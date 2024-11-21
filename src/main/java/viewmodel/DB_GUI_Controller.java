@@ -33,13 +33,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.scene.control.ProgressBar;
+import viewmodel.Major;
 
 public class DB_GUI_Controller implements Initializable {
 
     //Documentation passes Connection String here, but ours is refactored to the programs design
     StorageUploader store = new StorageUploader();
     @FXML
-    TextField first_name, last_name, department, major, email, imageURL;
+    TextField first_name, last_name, department,  email, imageURL;
+    //major, removed from tf
+    @FXML
+    private ComboBox<Major> majorComboBox;
+
     @FXML
     ImageView img_view;
     @FXML
@@ -58,6 +63,7 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            majorComboBox.getItems().setAll(Major.values());
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
             tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -72,13 +78,23 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void addNewRecord() {
+        Major selectedMajor = majorComboBox.getValue(); // Get selected enum value
+
+        if (selectedMajor == null) {
+            // Handle the case where no major is selected
+            System.out.println("Please select a major.");
+            //Change console to gui
+            return;
+        }
 
             Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major.getText(), email.getText(), imageURL.getText());
+                    selectedMajor, email.getText(), imageURL.getText());
+        //majorComboBox.getValue();
             cnUtil.insertUser(p);
             cnUtil.retrieveId(p);
             p.setId(cnUtil.retrieveId(p));
             data.add(p);
+            //clear form after adding user
             clearForm();
 
     }
@@ -88,7 +104,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        major.setText("");
+        //majorComboBox.setText("");
         email.setText("");
         imageURL.setText("");
     }
@@ -125,18 +141,21 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
+    //This needs work for some reason
     @FXML
     protected void editRecord() {
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                major.getText(), email.getText(),  imageURL.getText());
+                majorComboBox.getValue(), email.getText(),  imageURL.getText());
+        //majorComboBox.getValue();
         cnUtil.editUser(p.getId(), p2);
         data.remove(p);
         data.add(index, p2);
         tv.getSelectionModel().select(index);
     }
 
+    //also this?
     @FXML
     protected void deleteRecord() {
         Person p = tv.getSelectionModel().getSelectedItem();
@@ -159,7 +178,8 @@ public class DB_GUI_Controller implements Initializable {
             new Thread(uploadTask).start();
         }
     }
-
+    //Populate imageURL field from StorageUploader uploadFile
+    //uploadFile returns void, so figure out how to get the imageURL to populate that field for person
     private Task<Void> createUploadTask(File file, ProgressBar progressBar) {
         return new Task<>() {
             @Override
@@ -200,7 +220,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
-        major.setText(p.getMajor());
+        majorComboBox.setPromptText(p.getMajor().getDisplayName());
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
     }
@@ -260,7 +280,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS}
+ //   private static enum Major {BUSINESS, CSC, CPIS, Mathematics}
 
     private static class Results {
 

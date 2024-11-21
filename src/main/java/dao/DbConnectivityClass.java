@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Person;
 import service.MyLogger;
+import viewmodel.Major;
 
 import java.sql.*;
 public class DbConnectivityClass {
@@ -39,9 +40,18 @@ public class DbConnectivityClass {
                     String first_name = resultSet.getString("first_name");
                     String last_name = resultSet.getString("last_name");
                     String department = resultSet.getString("department");
-                    String major = resultSet.getString("major");
+                    String majorStr = resultSet.getString("major");
                     String email = resultSet.getString("email");
                     String imageURL = resultSet.getString("imageURL");
+
+                    // Map the majorString to the Major enum
+                    Major major = null;
+                    try {
+                        major = Major.valueOf(majorStr.toUpperCase()); // Match the enum name
+                    } catch (IllegalArgumentException e) {
+                        lg.makeLog("Unknown major: " + majorStr);
+                    }
+
                     data.add(new Person(id, first_name, last_name, department, major, email, imageURL));
                 }
                 preparedStatement.close();
@@ -162,7 +172,7 @@ public class DbConnectivityClass {
                 preparedStatement.setString(1, person.getFirstName());
                 preparedStatement.setString(2, person.getLastName());
                 preparedStatement.setString(3, person.getDepartment());
-                preparedStatement.setString(4, person.getMajor());
+                preparedStatement.setString(4, person.getMajor().getDisplayName());
                 preparedStatement.setString(5, person.getEmail());
                 preparedStatement.setString(6, person.getImageURL());
                 int row = preparedStatement.executeUpdate();
@@ -185,7 +195,7 @@ public class DbConnectivityClass {
                 preparedStatement.setString(1, p.getFirstName());
                 preparedStatement.setString(2, p.getLastName());
                 preparedStatement.setString(3, p.getDepartment());
-                preparedStatement.setString(4, p.getMajor());
+                preparedStatement.setString(4, p.getMajor().getDisplayName());
                 preparedStatement.setString(5, p.getEmail());
                 preparedStatement.setString(6, p.getImageURL());
                 preparedStatement.setInt(7, id);
