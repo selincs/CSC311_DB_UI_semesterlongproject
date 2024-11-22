@@ -140,11 +140,11 @@ public class DB_GUI_Controller implements Initializable {
 
             Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
                     selectedMajor, email.getText(), imageURL.getText());
-        //majorComboBox.getValue();
             cnUtil.insertUser(p);
             cnUtil.retrieveId(p);
             p.setId(cnUtil.retrieveId(p));
             data.add(p);
+            userUpdateLbl.setText("User Successfully Added!");
             //clear form after adding user
             clearForm();
 
@@ -209,6 +209,7 @@ public class DB_GUI_Controller implements Initializable {
         data.add(index, p2);
         tv.getSelectionModel().select(index);
         System.out.println("Edited?");
+        userUpdateLbl.setText("User Successfully Edited!");
     }
 
     //also this?
