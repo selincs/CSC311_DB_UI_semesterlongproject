@@ -17,7 +17,7 @@
                 <Image url="@../images/cats-10.png" />
        </image>
       </ImageView>
-      <Label text="Student Cat Distribution System" textFill="#a10587">
+      <Label text="Student Cat Distribution System" textFill="#a6414d">
          <font>
             <Font name="Harlow Solid Italic" size="32.0" />
          </font>

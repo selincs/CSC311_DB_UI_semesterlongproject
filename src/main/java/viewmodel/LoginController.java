@@ -72,25 +72,29 @@ public class LoginController {
         User user = new User(username, password);
         if (UserSession.getInstance().findUser(user)) {
             System.out.println("User found in instance!");
-            try {
-                //staticStage.getScene().setRoot(accountHome(DataCenter.getInstance().userList.get(DataCenter.getInstance().userIdx(user))));
-                Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-                Scene scene = new Scene(root, 900, 600);
 
-                //this choice will be gotten from privileges once that works
-                //implement that part here by getting privileges from gotten user idx's data member privileges
-                //and implement that somehow
-                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                window.setScene(scene);
-                window.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            //move try statement here
         } else {
             System.out.println("login failed");
             credentialsLbl.setVisible(true);
             //do something to tell user login failed, label or pop up
+        }
+
+        try {
+            //staticStage.getScene().setRoot(accountHome(DataCenter.getInstance().userList.get(DataCenter.getInstance().userIdx(user))));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+            Scene scene = new Scene(root, 900, 600);
+
+            //this choice will be gotten from privileges once that works
+            //implement that part here by getting privileges from gotten user idx's data member privileges
+            //and implement that somehow
+            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setMaximized(true);
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 //
 //        try {

@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -37,9 +39,9 @@
     <children>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="7">
             <children>
-                <Label alignment="CENTER" focusTraversable="false" prefHeight="74.0" prefWidth="1099.0" style="-fx-border-color: BLACK;" text="Sign Up New User Account" textFill="#139e41">
+                <Label alignment="CENTER" focusTraversable="false" prefHeight="74.0" prefWidth="1099.0" style="-fx-border-color: BLACK;" text="Sign Up for a New User Account" textFill="#139e41">
                     <font>
-                        <Font name="System Bold" size="51.0" />
+                        <Font name="Harlow Solid Italic" size="35.0" />
                     </font>
                 </Label>
             </children>
@@ -126,7 +128,7 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="goBackBtn" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: RED; -fx-border-color: BLACK;" text="Return to Login" textFill="WHITE">
+                <Button fx:id="goBackBtn" alignment="CENTER" mnemonicParsing="false" onAction="#goBack" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: purple; -fx-border-color: BLACK;" text="Return to Login" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -138,5 +140,21 @@
         </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="10" />
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+      <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6">
+         <image>
+            <Image url="@../images/cats-08.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="-72.0" top="-2.0" />
+         </GridPane.margin>
+      </ImageView>
+      <ImageView fitHeight="70.0" fitWidth="70.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cats-08.png" />
+         </image>
+         <GridPane.margin>
+            <Insets left="72.0" top="-2.0" />
+         </GridPane.margin>
+      </ImageView>
     </children>
 </GridPane>

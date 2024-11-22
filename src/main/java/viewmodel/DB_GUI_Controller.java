@@ -29,14 +29,13 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.scene.control.ProgressBar;
-import viewmodel.Major;
 
 public class DB_GUI_Controller implements Initializable {
 
@@ -51,7 +50,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     private ComboBox<Major> majorComboBox;
     @FXML
-    ImageView img_view;
+    ImageView img_view, randomCatImgView;
     @FXML
     MenuBar menuBar;
     @FXML
@@ -67,10 +66,17 @@ public class DB_GUI_Controller implements Initializable {
 
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
+    private static final String[] CAT_PATHS = {
+            "images/cats-01.png", "images/cats-02.png", "images/cats-03.png", "images/cats-04.png",  "images/cats-05.png",
+            "images/cats-06.png", "images/cats-07.png", "images/cats-08.png", "images/cats-09.png", "images/cats-10.png"
+    };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+
+            //display a randomly assigned cat to the user :)
+            displayRandomCatImage(randomCatImgView);
 
             //disable edit + delete button unless a record is selected
             editBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
@@ -271,6 +277,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void addRecord() {
         showSomeone();
+        //displayRandomCatImage(randomCatImgView);
     }
 
     //This method needs love / is throwing issues -> Can I fix this to give me the id of a selected user to edit in TV?
@@ -409,4 +416,18 @@ public class DB_GUI_Controller implements Initializable {
         addBtn.setDisable(!(firstNameValid && lastNameValid && !imageURL.getText().isEmpty() && emailValid && majorComboBox.getValue() != null));
     }
 
+    public void displayRandomCatImage(ImageView randomCatImgView) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(CAT_PATHS.length); // Generate a random index
+        // Get resource URL
+        URL resource = getClass().getResource("/" + CAT_PATHS[randomIndex]);
+        if (resource != null) {
+            // Convert URL to external form for Image
+            String imageUrl = resource.toExternalForm();
+            Image randomImage = new Image(imageUrl);
+            randomCatImgView.setImage(randomImage);
+        } else {
+            System.out.println("Error: Image not found for path: " + CAT_PATHS[randomIndex]);
+        }
+    }
 }
