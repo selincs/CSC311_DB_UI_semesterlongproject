@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.User;
+import service.UserSession;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -65,6 +67,26 @@ public class SignUpController {
 
     public void createNewAccount(ActionEvent actionEvent) {
         //Validation goes here
+        for (int i = 0; i < UserSession.getInstance().getUserList().size(); i++) {
+            if (UserSession.getInstance().getUserList().get(i).getUsername().equalsIgnoreCase(usernameTF.getText())) {
+//                if (lbAccountCreated.isVisible()) {
+//                    lbAccountCreated.setVisible(false);
+//                }
+//                lbInvalidUsername.setVisible(true);
+//                break;
+//            }
+//            if (i == UserSession.getInstance().getUserList().size() - 1) {
+//                UserSession.getInstance().getUserList().add(new User(usernameTF.getText(), pwTF.getText()));
+//                if (lbInvalidUsername.isVisible()) {
+//                    lbInvalidUsername.setVisible(false);
+//                }
+//                lbAccountCreated.setVisible(true);
+//                btnCreate.setVisible(false);
+//                btnReturn.setVisible(true);
+//                UserSession.getInstance().saveUserList();
+//                break;
+            }
+        }
 
         //If account creation successful
         //if user session exists? auto login?

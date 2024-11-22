@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import service.UserSession;
 
 
 public class LoginController {
@@ -30,7 +31,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private Label usernameLabel, passwordLabel;
+    private Label usernameLabel, passwordLabel, credentialsLbl;
 
     @FXML
     private GridPane rootpane;
@@ -55,6 +56,7 @@ public class LoginController {
         fadeOut2.setFromValue(0);
         fadeOut2.setToValue(1);
         fadeOut2.play();
+        credentialsLbl.setVisible(false);
     }
     private static BackgroundImage createImage(String url) {
         return new BackgroundImage(
@@ -68,18 +70,43 @@ public class LoginController {
         String username = usernameTextField.getText();
         String password = passwordField.getText();
         User user = new User(username, password);
+        if (UserSession.getInstance().findUser(user)) {
+            System.out.println("User found in instance!");
+            try {
+                //staticStage.getScene().setRoot(accountHome(DataCenter.getInstance().userList.get(DataCenter.getInstance().userIdx(user))));
+                Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+                Scene scene = new Scene(root, 900, 600);
 
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+                //this choice will be gotten from privileges once that works
+                //implement that part here by getting privileges from gotten user idx's data member privileges
+                //and implement that somehow
+                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("login failed");
+            credentialsLbl.setVisible(true);
+            //do something to tell user login failed, label or pop up
         }
+//
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+//            Scene scene = new Scene(root, 900, 600);
+//
+//            //this choice will be gotten from privileges once that works
+//            //implement that part here by getting privileges from gotten user idx's data member privileges
+//            //and implement that somehow
+//            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+//            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//            window.setScene(scene);
+//            window.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void signUp(ActionEvent actionEvent) {

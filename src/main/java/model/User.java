@@ -8,7 +8,8 @@ public class User implements Serializable {
     private String password;
     private String privileges;
 
-    //Anon user created for validating login
+    //Lets just try logging in without privileges first
+    //Anon user created for validating login against serialized users
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -31,6 +32,10 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPrivileges() {
+        return this.privileges;
     }
 
     public String toString() {
