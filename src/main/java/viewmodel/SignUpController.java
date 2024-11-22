@@ -19,10 +19,10 @@ import java.util.regex.Pattern;
 public class SignUpController {
 
     @FXML
-    private Label usernameLbl, usernameVldLbl, pwLbl, pwVldLbl, dobLbl, dobVldLbl;
+    private Label usernameLbl, usernameVldLbl, pwLbl, pwVldLbl, dobLbl, dobVldLbl, confirmPwLbl, confirmPwVldLbl;
 
     @FXML
-    private TextField usernameTF, pwTF, dobTF;
+    private TextField usernameTF, pwTF, confirmPwTF, dobTF;
 
     @FXML
     private Button goBackBtn, newAccountBtn;
@@ -39,9 +39,19 @@ public class SignUpController {
         pwTF.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {  // Focus lost
                 validatePassword();
+                validatePasswordMatch();
                 validateCreateAcc();
             }
         });
+        confirmPwVldLbl.setVisible(false);
+        confirmPwTF.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {  // Focus lost
+                validatePassword();
+                validatePasswordMatch();
+                validateCreateAcc();
+            }
+        });
+
         dobVldLbl.setVisible(false);
         dobTF.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {  // Focus lost
@@ -57,9 +67,11 @@ public class SignUpController {
         //Validation goes here
 
         //If account creation successful
+        //if user session exists? auto login?
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Account successfully created! Return to login.");
         alert.showAndWait();
+        //go back to login automatically
 
         //else account creation failed, show labels
 
@@ -70,8 +82,9 @@ public class SignUpController {
         boolean usernameValid = !usernameVldLbl.isVisible() && usernameTF != null && !usernameTF.getText().trim().isEmpty();
         boolean pwValid = !pwVldLbl.isVisible() && pwTF != null && !pwTF.getText().trim().isEmpty();
         boolean dobValid = !dobVldLbl.isVisible() && dobTF != null && !dobTF.getText().trim().isEmpty();
+        boolean confPwValid = !confirmPwVldLbl.isVisible() && confirmPwTF != null && !confirmPwTF.getText().trim().isEmpty();
 
-        newAccountBtn.setDisable(!(usernameValid && pwValid && dobValid));
+        newAccountBtn.setDisable(!(usernameValid && pwValid && confPwValid && dobValid));
     }
 
     public void goBack(ActionEvent actionEvent) {
@@ -101,19 +114,36 @@ public class SignUpController {
             usernameVldLbl.setVisible(false);
         }
     }
+    private void validatePassword(){
+        validatePasswords(pwTF.getText(), pwVldLbl);
+    }
 
-    private void validatePassword() {
+    private void validatePasswordMatch() {
+        validatePasswords(confirmPwTF.getText(), confirmPwLbl);
+        if (pwTF.getText() == null || pwTF.getText().trim().isEmpty()
+                || confirmPwTF.getText() == null || confirmPwTF.getText().trim().isEmpty()){
+            confirmPwVldLbl.setVisible(true);
+        }
+        else if (!pwTF.getText().equals(confirmPwTF.getText())) {
+            confirmPwVldLbl.setVisible(true);
+        }
+        else {
+            confirmPwVldLbl.setVisible(false);
+        }
+    }
+
+    private void validatePasswords(String pass, Label validationLabel) {
         //Pattern to capture occasional name's with hyphens or apostrophes as valid
         //Any letters any case [A-Z] any digit[0-9] including hyphens, underscores or apostrophes, min 4 max 18 chars
         final String regexPwPattern = "([a-zA-Z0-9'_!@#$%^&*-]{6,18})";
         final Pattern pattern = Pattern.compile(regexPwPattern, Pattern.MULTILINE);
-        final Matcher matcher = pattern.matcher(pwTF.getText());
+        final Matcher matcher = pattern.matcher(pass);
         // Example validation: Show the label if the first name is empty or null
         // or doesn't match pattern
-        if (pwTF.getText() == null || pwTF.getText().trim().isEmpty() || !matcher.matches()) {
-            pwVldLbl.setVisible(true);
+        if (pass == null || pass.trim().isEmpty() || !matcher.matches()) {
+            validationLabel.setVisible(true);
         } else {
-            pwVldLbl.setVisible(false);
+            validationLabel.setVisible(false);
         }
     }
 

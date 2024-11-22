@@ -56,7 +56,7 @@
                   <TextField fx:id="usernameTF" promptText="Your unique username!!" />
                </children>
             </HBox>
-            <Label fx:id="usernameVldLbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Username already exists, please try a different username." textFill="RED">
+            <Label fx:id="usernameVldLbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Username invalid, please try a different username with at least 4 characters." textFill="RED">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -81,6 +81,24 @@
                <padding>
                   <Insets top="-25.0" />
                </padding>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="89.0" prefWidth="362.0" spacing="25.0">
+               <children>
+                  <Label fx:id="confirmPwLbl" text="Confirm Password" textFill="#0f7b39">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="-50.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="confirmPwTF" promptText="At least 6 characters" />
+               </children>
+            </HBox>
+            <Label fx:id="confirmPwVldLbl" text="Passwords do not match." textFill="RED">
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
                <children>

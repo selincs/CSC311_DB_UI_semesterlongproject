@@ -1,14 +1,20 @@
 package service;
 
+import model.User;
+
+import java.io.*;
+import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 public class UserSession {
 
     private static UserSession instance;
 
+    //can probably move these fields to user class
     private String userName;
     private String password;
     private String privileges;
+    ArrayList<User> userList = null;
 
     private UserSession(String userName, String password, String privileges) {
         this.userName = userName;
@@ -39,6 +45,27 @@ public class UserSession {
         }
         return instance;
     }
+    public void saveUserList() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userList.dat"));) {
+            oos.writeObject(instance.userList);
+        } catch (IOException ioe) {
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void readUserList() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userList.dat"));) {
+            userList = (ArrayList<User>) ois.readObject();
+        } catch (IOException ioe) {
+
+        } catch (Exception e) {
+
+        }
+    }
+
+
     public String getUserName() {
         return this.userName;
     }
@@ -51,12 +78,13 @@ public class UserSession {
         return this.privileges;
     }
 
+    //probably need to change this to user for my implementation
     public synchronized void cleanUserSession() {
         this.userName = "";// or null
         this.password = "";
         this.privileges = "";// or null
     }
-
+    //probably need to change this to user for my implementation
     @Override
     public String toString() {
         return "UserSession{" +
