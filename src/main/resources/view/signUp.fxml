@@ -74,7 +74,7 @@
                   <TextField fx:id="pwTF" promptText="At least 6 characters" />
                </children>
             </HBox>
-            <Label fx:id="pwVldLbl" text="Password length invalid. Please include at least 6 characters." textFill="RED">
+            <Label fx:id="pwVldLbl" text="Password length invalid. Please include 6-18 characters." textFill="RED">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -89,10 +89,10 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="dobTF" promptText="MM/DD/YY" />
+                  <TextField fx:id="dobTF" promptText="MM/DD/YYYY" />
                </children>
             </HBox>
-            <Label fx:id="dobInvalidLbl" text="Invalid Date of Birth. Please Enter a living human Date of Birth." textFill="RED">
+            <Label fx:id="dobVldLbl" text="Invalid Date of Birth. Please Enter a living human Date of Birth." textFill="RED">
                <padding>
                   <Insets top="-25.0" />
                </padding>
