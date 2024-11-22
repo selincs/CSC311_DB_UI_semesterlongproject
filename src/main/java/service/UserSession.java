@@ -21,6 +21,7 @@ public class UserSession {
     }
 
 
+    //First call on Log In
     public static UserSession getInstance(String userName, String password, String privileges) {
         if(instance == null) {
             synchronized (UserSession.class) {
