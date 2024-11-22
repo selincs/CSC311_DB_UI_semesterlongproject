@@ -8,9 +8,21 @@ public class User implements Serializable {
     private String password;
     private String privileges;
 
+    //Anon user created for validating login
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    //For signup
+    public User(String username, String password, String privileges) {
+        this.username = username;
+        this.password = password;
+        this.privileges = privileges;
+        Preferences userPreferences = Preferences.userRoot();
+        userPreferences.put("USERNAME",username);
+        userPreferences.put("PASSWORD",password);
+        userPreferences.put("PRIVILEGES",privileges);
     }
 
     public String getUsername() {

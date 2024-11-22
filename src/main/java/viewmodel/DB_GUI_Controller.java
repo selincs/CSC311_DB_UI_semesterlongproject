@@ -55,6 +55,8 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     MenuBar menuBar;
     @FXML
+    private MenuItem importCSVmi, exportCSVmi, ChangePic, ClearItem, CopyItem, deleteItem, editItem, logOut, newItem;
+    @FXML
     private TableView<Person> tv;
     @FXML
     private TableColumn<Person, Integer> tv_id;

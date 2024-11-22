@@ -12,14 +12,32 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import model.User;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 
 public class LoginController {
 
 
     @FXML
+    private Button loginBtn, signUpButton;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private Label usernameLabel, passwordLabel;
+
+    @FXML
     private GridPane rootpane;
+
+    @FXML
+    private TextField usernameTextField;
+
     public void initialize() {
         rootpane.setBackground(new Background(
                         createImage("https://edencoding.com/wp-content/uploads/2021/03/layer_06_1920x1080.png"),
@@ -47,6 +65,11 @@ public class LoginController {
     }
     @FXML
     public void login(ActionEvent actionEvent) {
+        String username = usernameTextField.getText();
+        String password = passwordField.getText();
+        User user = new User(username, password);
+
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
             Scene scene = new Scene(root, 900, 600);

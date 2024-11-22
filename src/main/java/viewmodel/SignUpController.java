@@ -115,11 +115,11 @@ public class SignUpController {
         }
     }
     private void validatePassword(){
-        validatePasswords(pwTF.getText(), pwVldLbl);
+        validatePasswordPatterns(pwTF.getText(), pwVldLbl);
     }
 
     private void validatePasswordMatch() {
-        validatePasswords(confirmPwTF.getText(), confirmPwLbl);
+        validatePasswordPatterns(confirmPwTF.getText(), confirmPwLbl);
         if (pwTF.getText() == null || pwTF.getText().trim().isEmpty()
                 || confirmPwTF.getText() == null || confirmPwTF.getText().trim().isEmpty()){
             confirmPwVldLbl.setVisible(true);
@@ -132,7 +132,7 @@ public class SignUpController {
         }
     }
 
-    private void validatePasswords(String pass, Label validationLabel) {
+    private void validatePasswordPatterns(String pass, Label validationLabel) {
         //Pattern to capture occasional name's with hyphens or apostrophes as valid
         //Any letters any case [A-Z] any digit[0-9] including hyphens, underscores or apostrophes, min 4 max 18 chars
         final String regexPwPattern = "([a-zA-Z0-9'_!@#$%^&*-]{6,18})";

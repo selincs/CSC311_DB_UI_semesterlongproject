@@ -49,9 +49,9 @@ public class UserSession {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userList.dat"));) {
             oos.writeObject(instance.userList);
         } catch (IOException ioe) {
-
+            System.out.println("save user list ioe exception");
         } catch (Exception e) {
-
+            System.out.println("save user list e exception");
         }
     }
 
@@ -59,9 +59,9 @@ public class UserSession {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userList.dat"));) {
             userList = (ArrayList<User>) ois.readObject();
         } catch (IOException ioe) {
-
+            System.out.println("read user list ioe exception");
         } catch (Exception e) {
-
+            System.out.println("read user list e exception");
         }
     }
 
