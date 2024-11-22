@@ -32,6 +32,9 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javafx.scene.control.ProgressBar;
 import viewmodel.Major;
 
@@ -43,6 +46,8 @@ public class DB_GUI_Controller implements Initializable {
     TextField first_name, last_name, department,  email, imageURL;
     @FXML
     private Button addBtn, clearBtn, editBtn, deleteBtn;
+    @FXML
+    private Label userUpdateLbl, emailVldLbl, f_NameVldLbl, l_NameVldLbl, majorValidLbl;
     @FXML
     private ComboBox<Major> majorComboBox;
     @FXML
@@ -64,21 +69,51 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            //majorComboBox.getItems().setAll(Major.values());
-            majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
 
             //disable edit + delete button unless a record is selected
             editBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             deleteBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
 
+            //majorComboBox.getItems().setAll(Major.values());
+            majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
+
+            //add button validation based on regex
+            //email validation
+            email.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue) {  // Focus lost
+                    validateEmail();
+                    validateAddUser();
+                }
+            });
+            //name validation - first
+            first_name.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue) {  // Focus lost
+                    validateFirstName();
+                    validateAddUser();
+                }
+            });
+            //last name
+            last_name.focusedProperty().addListener((observable, oldValue, newValue) -> {
+                if (!newValue) {  // Focus lost
+                    validateLastName();
+                    validateAddUser();
+                }
+            });
             //Listener to update departmentTF on major selection from combobox
             majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     department.setText(newValue.getMajorCode());
+                    majorValidLbl.setVisible(false);
+                    majorValidLbl.setManaged(false);
                 } else {
+                    majorValidLbl.setVisible(true);
+                    majorValidLbl.setManaged(true);
                     department.clear();
                 }
+                validateAddUser(); //Call validate for add button after combo box interaction
             });
+
+            //Should I mandate a file upload validation wise?
 
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -120,9 +155,11 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        majorComboBox.setPromptText("Major");
+        majorComboBox.setValue(null);
+        majorComboBox.setPromptText("Select a Major");
         email.setText("");
         imageURL.setText("");
+        validateAddUser();
     }
 
     @FXML
@@ -159,6 +196,8 @@ public class DB_GUI_Controller implements Initializable {
     }
 
     //This needs work -> analyze
+    //Email and imgURL cannot be updated because of thrown error in current state
+    //potential work around is to just restructure constructor but maybe i can fix later
     @FXML
     protected void editRecord() {
         Person p = tv.getSelectionModel().getSelectedItem();
@@ -313,6 +352,58 @@ public class DB_GUI_Controller implements Initializable {
             this.lname = date;
             this.major = venue;
         }
+    }
+
+    private void validateEmail() {
+        //Regex pattern to match any farmingdale.edu email address that starts
+        //with a case-insensitive letter and has at least one character following
+        final String regexEmailPattern = "(([a-zA-z])(\\w)+)@(\\w+)[.](\\w+)";
+        final Pattern pattern = Pattern.compile(regexEmailPattern, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(email.getText());
+
+        if (email.getText() == null || email.getText().trim().isEmpty() || !matcher.matches()) {
+            emailVldLbl.setVisible(true);
+            emailVldLbl.setManaged(true);
+        } else {
+            emailVldLbl.setVisible(false);
+            emailVldLbl.setManaged(false);
+        }
+    }
+    //Helper methods to accommodate both first name and last name using the same pattern
+    private void validateFirstName() {
+        validateName(first_name.getText(), f_NameVldLbl);
+    }
+
+    private void validateLastName() {
+        validateName(last_name.getText(), l_NameVldLbl);
+    }
+
+    private void validateName(String name, Label validationLabel) {
+        //Pattern to capture occasional name's with hyphens or apostrophes as valid
+        //Any letters any case [A-Z] including hyphens or apostrophes
+        final String regexNamePattern = "([a-zA-Z'-]{2,25})";
+        final Pattern pattern = Pattern.compile(regexNamePattern, Pattern.MULTILINE);
+        final Matcher matcher = pattern.matcher(name);
+        // Example validation: Show the label if the first name is empty or null
+        // or doesn't match pattern
+        if (name == null || name.trim().isEmpty() || !matcher.matches()) {
+            validationLabel.setVisible(true);
+            validationLabel.setManaged(true);
+        } else {
+            validationLabel.setVisible(false);
+            validationLabel.setManaged(false);
+        }
+    }
+
+    //imgURL not currently validated
+    private void validateAddUser() {
+        boolean firstNameValid = !f_NameVldLbl.isVisible() && first_name != null && !first_name.getText().trim().isEmpty();
+        boolean lastNameValid = !l_NameVldLbl.isVisible() && l_NameVldLbl != null && !last_name.getText().trim().isEmpty();
+        boolean emailValid = !emailVldLbl.isVisible() && email != null && !email.getText().trim().isEmpty();
+        boolean majorSelected = majorComboBox.getValue() != null; // Check if a major is selected
+
+
+        addBtn.setDisable(!(firstNameValid && lastNameValid && !imageURL.getText().isEmpty() && emailValid && majorComboBox.getValue() != null));
     }
 
 }

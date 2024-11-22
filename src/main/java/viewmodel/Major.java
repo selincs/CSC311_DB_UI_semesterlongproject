@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Major {
-    COMPUTER_SCIENCE("Computer Science", "CSC"),
-    COMPUTER_PROGRAMMING("Computer Programming", "CPIS"),
+    COMPUTER_SCIENCE("Computer_Science", "CSC"),
+    COMPUTER_PROGRAMMING("Computer_Programming", "CPIS"),
     ENGLISH("English", "EGL"),
     MATHEMATICS("Mathematics", "MTH"),
     PHYSICS("Physics", "PHY"),
@@ -31,7 +31,6 @@ public enum Major {
         }
     }
 
-
     Major(String displayName, String majorCode) {
         this.displayName = displayName;
         this.majorCode = majorCode;
@@ -53,31 +52,3 @@ public enum Major {
         return (major != null) ? major.getMajorCode() : null;
     }
 }
-
-
-//    Major(String displayName/*, String majorCode*/) {
-//        this.displayName = displayName;
-////        this.majorCode = majorCode;
-//    }
-
-
-
-//
-//    //Methods to populate user fields based on single entry
-//
-
-//
-//    public static Major getByMajorCode(String majorCode) {
-//        return BY_MAJOR_CODE.get(majorCode.toLowerCase());
-//    }
-//
-//    public static String getDisplayNameByCode(String majorCode) {
-//        Major major = getByMajorCode(majorCode);
-//        return (major != null) ? major.getDisplayName() : null;
-//    }
-//
-
-//
-
-
-
