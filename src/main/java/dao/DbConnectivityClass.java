@@ -45,6 +45,7 @@ public class DbConnectivityClass {
                     String imageURL = resultSet.getString("imageURL");
 
                     // Map the majorString to the Major enum
+                    //this mapping is incorrect atm and making issues / logs
                     Major major = null;
                     try {
                         major = Major.valueOf(majorStr.toUpperCase()); // Match the enum name

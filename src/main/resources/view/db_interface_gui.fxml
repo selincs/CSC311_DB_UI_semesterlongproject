@@ -95,7 +95,7 @@
                      </VBox.margin>
                      <children>
                         <ComboBox fx:id="majorComboBox" prefHeight="25.0" prefWidth="140.0" promptText="Major" />
-                              <TextField fx:id="department" prefHeight="25.0" prefWidth="50.0" promptText="Dept" styleClass="text_field" />
+                              <TextField fx:id="department" editable="false" prefHeight="25.0" prefWidth="50.0" promptText="Dept" styleClass="text_field" />
                      </children>
                   </HBox>
                         <TextField fx:id="email" promptText="Email" styleClass="text_field">

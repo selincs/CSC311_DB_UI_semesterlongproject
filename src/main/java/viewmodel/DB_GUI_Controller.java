@@ -63,7 +63,18 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            majorComboBox.getItems().setAll(Major.values());
+            //majorComboBox.getItems().setAll(Major.values());
+            majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
+
+            //Listener to update departmentTF on major selection from combobox
+            majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    department.setText(newValue.getMajorCode());
+                } else {
+                    department.clear();
+                }
+            });
+
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
             tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -141,14 +152,13 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
-    //This needs work for some reason
+    //This needs work -> analyze
     @FXML
     protected void editRecord() {
         Person p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
         Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
                 majorComboBox.getValue(), email.getText(),  imageURL.getText());
-        //majorComboBox.getValue();
         cnUtil.editUser(p.getId(), p2);
         data.remove(p);
         data.add(index, p2);
@@ -214,6 +224,8 @@ public class DB_GUI_Controller implements Initializable {
         showSomeone();
     }
 
+    //This method needs love / is throwing issues -> Can I fix this to give me the id of a selected user to edit in TV?
+   //first ensure major is not being over written elsewhere
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
         Person p = tv.getSelectionModel().getSelectedItem();
