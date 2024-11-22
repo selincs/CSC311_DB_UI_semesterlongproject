@@ -41,10 +41,10 @@ public class DB_GUI_Controller implements Initializable {
     StorageUploader store = new StorageUploader();
     @FXML
     TextField first_name, last_name, department,  email, imageURL;
-    //major, removed from tf
+    @FXML
+    private Button addBtn, clearBtn, editBtn, deleteBtn;
     @FXML
     private ComboBox<Major> majorComboBox;
-
     @FXML
     ImageView img_view;
     @FXML
@@ -57,6 +57,7 @@ public class DB_GUI_Controller implements Initializable {
     private ProgressBar progressBar;
     @FXML
     private TableColumn<Person, String> tv_fn, tv_ln, tv_department, tv_major, tv_email;
+
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
 
@@ -65,6 +66,10 @@ public class DB_GUI_Controller implements Initializable {
         try {
             //majorComboBox.getItems().setAll(Major.values());
             majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
+
+            //disable edit + delete button unless a record is selected
+            editBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
+            deleteBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
 
             //Listener to update departmentTF on major selection from combobox
             majorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -115,7 +120,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        //majorComboBox.setText("");
+        majorComboBox.setPromptText("Major");
         email.setText("");
         imageURL.setText("");
     }
@@ -139,6 +144,7 @@ public class DB_GUI_Controller implements Initializable {
         System.exit(0);
     }
 
+    //Should I make this display my readme?
     @FXML
     protected void displayAbout() {
         try {
@@ -163,6 +169,7 @@ public class DB_GUI_Controller implements Initializable {
         data.remove(p);
         data.add(index, p2);
         tv.getSelectionModel().select(index);
+        System.out.println("Edited?");
     }
 
     //also this?
@@ -228,6 +235,7 @@ public class DB_GUI_Controller implements Initializable {
    //first ensure major is not being over written elsewhere
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
+        clearForm();
         Person p = tv.getSelectionModel().getSelectedItem();
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());

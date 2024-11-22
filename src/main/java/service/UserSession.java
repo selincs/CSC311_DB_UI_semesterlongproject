@@ -23,14 +23,18 @@ public class UserSession {
 
     public static UserSession getInstance(String userName, String password, String privileges) {
         if(instance == null) {
-            instance = new UserSession(userName, password, privileges);
+            synchronized (UserSession.class) {
+                instance = new UserSession(userName, password, privileges);
+            }
         }
         return instance;
     }
 
     public static UserSession getInstance(String userName, String password) {
-        if(instance == null) {
-            instance = new UserSession(userName, password, "NONE");
+        if (instance == null) {
+            synchronized (UserSession.class) {
+                instance = new UserSession(userName, password, "NONE");
+            }
         }
         return instance;
     }
@@ -46,7 +50,7 @@ public class UserSession {
         return this.privileges;
     }
 
-    public void cleanUserSession() {
+    public synchronized void cleanUserSession() {
         this.userName = "";// or null
         this.password = "";
         this.privileges = "";// or null
