@@ -6,7 +6,7 @@
     -fx-background-color: #555;
     -fx-radius: 2;
     -fx-cursor: hand;
-    -fx-font-family: "Arial";
+    -fx-font-family: "Harlow Solid Italic";
     -fx-font-size: 14px;
     -fx-text-alignment: center;
     -fx-text-fill: #d5d5d5;
@@ -36,6 +36,7 @@
 
 .menu_bar{
     -fx-background-color: black;
+    -fx-font-family: "Harlow Solid Italic";
 }
 
 .menu_bar .label{
@@ -47,8 +48,8 @@
 .menu_options .label{
     -fx-background-color: black;
         -fx-text-fill: white;
-
 }
+
 .menu_items{
     -fx-background-color: black;
 }
@@ -59,6 +60,7 @@
 .text_field {
     -fx-background-color: black;
     -fx-text-fill: white;
+    -fx-font-family: "Harlow Solid Italic";
 }
 
 
@@ -70,7 +72,7 @@
     -fx-stroke: white;
 }
 .table-view:focused .table-row-cell:selected .table-cell {
-    -fx-background-color: lightBlue;
+    -fx-background-color: #b826b8;
     -fx-text-fill: grey;
 }
 .table-view .column-header,

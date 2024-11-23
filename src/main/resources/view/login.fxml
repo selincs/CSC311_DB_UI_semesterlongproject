@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootpane" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" styleClass="grid_pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewmodel.LoginController">
+<GridPane fx:id="rootpane" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1100.0" style="-fx-background-color: #f9f0fc;" styleClass="grid_pane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewmodel.LoginController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.0" minWidth="10.0" prefWidth="165.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="207.0" />
@@ -65,9 +65,9 @@
         <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
-                <Label id="emailLabel" fx:id="usernameLabel" alignment="TOP_CENTER" contentDisplay="TOP" focusTraversable="false" prefHeight="23.0" prefWidth="156.0" styleClass="login_label" text="Username" textAlignment="RIGHT">
+                <Label id="emailLabel" fx:id="usernameLabel" alignment="TOP_CENTER" contentDisplay="TOP" focusTraversable="false" prefHeight="23.0" prefWidth="156.0" styleClass="login_label" text="Username" textAlignment="RIGHT" textFill="#8c007e">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Harlow Solid Italic" size="24.0" />
                     </font>
                <VBox.margin>
                   <Insets />
@@ -77,9 +77,9 @@
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
         <VBox alignment="CENTER" prefHeight="601.0" prefWidth="723.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <children>
-                <Label id="passwordLabel" fx:id="passwordLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="23.0" prefWidth="154.0" styleClass="login_label" text="Password" textAlignment="RIGHT">
+                <Label id="passwordLabel" fx:id="passwordLabel" alignment="CENTER" contentDisplay="TOP" prefHeight="23.0" prefWidth="154.0" styleClass="login_label" text="Password" textAlignment="RIGHT" textFill="#8c007e">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Harlow Solid Italic" size="24.0" />
                     </font>
                <VBox.margin>
                   <Insets />
@@ -90,12 +90,12 @@
          <children>
                 <Button fx:id="loginBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="208.0" style="-fx-background-color: Green; -fx-border-color: BLACK;" styleClass="login_button" text="Login" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Harlow Solid Italic" size="18.0" />
                     </font>
                 </Button>
                   <Button fx:id="signUpButton" mnemonicParsing="false" onAction="#signUp" prefHeight="40.0" prefWidth="211.0" style="-fx-background-color: PURPLE; -fx-border-color: BLACK;" styleClass="login_button" text="Sign Up" textFill="WHITE">
                       <font>
-                          <Font name="System Bold" size="15.0" />
+                          <Font name="Harlow Solid Italic" size="18.0" />
                       </font>
                   </Button>
          </children>
@@ -106,16 +106,25 @@
             <Insets left="-150.0" />
          </padding>
       </VBox>
-          <TextField id="emailTextField" fx:id="usernameTextField" prefHeight="28.0" prefWidth="400.0" promptText="email_id@domain.edu" style="-fx-border-color: BLACK;" styleClass="login_text_field" GridPane.columnIndex="3" GridPane.rowIndex="3">
+          <TextField id="emailTextField" fx:id="usernameTextField" prefHeight="28.0" prefWidth="400.0" promptText="username" style="-fx-border-color: BLACK;" styleClass="login_text_field" GridPane.columnIndex="3" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
+         <font>
+            <Font name="Harlow Solid Italic" size="12.0" />
+         </font>
       </TextField>
-          <PasswordField fx:id="passwordField" style="-fx-border-color: BLACK;" styleClass="login_password_field" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+          <PasswordField fx:id="passwordField" promptText="password" style="-fx-border-color: BLACK;" styleClass="login_password_field" GridPane.columnIndex="3" GridPane.rowIndex="4">
+         <font>
+            <Font name="Harlow Solid Italic" size="12.0" />
+         </font></PasswordField>
       <Label fx:id="credentialsLbl" alignment="BOTTOM_LEFT" contentDisplay="BOTTOM" text="The login credentials do not match any saved accounts. Please try again." textFill="RED" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="30.0" top="220.0" />
          </GridPane.margin>
+         <font>
+            <Font name="Harlow Solid Italic" size="17.0" />
+         </font>
       </Label>
       <ImageView fitHeight="118.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4">
          <image>

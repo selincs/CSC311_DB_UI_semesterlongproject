@@ -1,7 +1,7 @@
 .db_btn {
-    -fx-background-color: #a73;
+    -fx-background-color: #7B52AE;
     -fx-cursor: hand;
-    -fx-font-family: "Arial";
+    -fx-font-family: "Harlow Solid Italic";
     -fx-font-size: 15px;
     -fx-text-alignment: center;
     -fx-text-fill: #000000;
@@ -9,34 +9,37 @@
     -fx-background-radius: 10;
     -fx-pref-width:200px;
     -fx-pref-height: 50px;
+    -fx-text-fill: #f0fcf0;
 }
 
 .left_pane {
-    -fx-background-color: #a73;
+    -fx-background-color: #471871;
     -fx-pref-width: 130px;
     -fx-pref-height: 600px;
 }
 
 .admin_section {
-    -fx-background-color: #999;
+    -fx-background-color: #fdedfd;
 }
 
 .table_columns {
-    -fx-background-color: white;
+    -fx-background-color: #dbcbe1;
     -fx-text-fill: black;
 }
 
 
 .menu_bar {
-    -fx-background-color: #841;
+    -fx-background-color: #f9f0fc;
+    -fx-font-family: "Harlow Solid Italic";
+    -fx-font-size: 15 pt;
 }
 
 .anchor_pane {
-    -fx-background-color: #a73;
+    -fx-background-color: #94C773 ;
 }
 
 .text_field_pane {
-    -fx-background-color: #79dc05;
+    -fx-background-color: #471871;
 
 }
 
@@ -51,7 +54,7 @@
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
-    -fx-background-color:  #999999;
+    -fx-background-color:  #7B52AE;
      -fx-text-fill: black;
 }
 .table-view .column-header .label{
@@ -87,7 +90,7 @@
 }
 
 .table-view:focused .table-row-cell:selected .table-cell {
-    -fx-background-color: lightBlue;
+    -fx-background-color: #f9f0fc ;
     -fx-text-fill: grey;
 }
 /* scroll bar starts here */
@@ -116,4 +119,24 @@
 	-fx-background-insets: 1, 0, 0;
 	-fx-background-radius: 2em;
 
+}
+
+.progress-bar {
+    -fx-accent: #4CAF50; /* color for the progress bar */
+    -fx-border-color: #44024c;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px; /* rounded corners for the progress bar */
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 5px; /* Match rounded corners for the progress */
+}
+
+.progress-bar:indeterminate {
+    -fx-accent: #44024c; /* Color for indeterminate progress */
+}
+
+#profile {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
 }

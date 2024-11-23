@@ -167,6 +167,7 @@ public class DB_GUI_Controller implements Initializable {
         majorComboBox.setPromptText("Select a Major");
         email.setText("");
         imageURL.setText("");
+        userUpdateLbl.setText("[User Information]");
         validateAddUser();
     }
 
@@ -228,6 +229,7 @@ public class DB_GUI_Controller implements Initializable {
         cnUtil.deleteRecord(p);
         data.remove(index);
         tv.getSelectionModel().select(index);
+        userUpdateLbl.setText("User Deleted!");
     }
 
 
@@ -237,9 +239,24 @@ public class DB_GUI_Controller implements Initializable {
         File file = (new FileChooser()).showOpenDialog(img_view.getScene().getWindow());
         if (file != null) {
             img_view.setImage(new Image(file.toURI().toString()));
+            userUpdateLbl.setText("Upload in Progress...");
 
             Task<Void> uploadTask = createUploadTask(file, progressBar);
             progressBar.progressProperty().bind(uploadTask.progressProperty());
+
+            uploadTask.setOnSucceeded(event -> {
+                userUpdateLbl.setText("Upload Complete!");
+            });
+
+
+            uploadTask.setOnFailed(event -> {
+                userUpdateLbl.setText("Upload Failed. Please try again.");
+                Throwable exception = uploadTask.getException();
+                if (exception != null) {
+                    exception.printStackTrace();
+                }
+            });
+
             new Thread(uploadTask).start();
         }
     }
@@ -252,6 +269,7 @@ public class DB_GUI_Controller implements Initializable {
                 BlobClient blobClient = store.getContainerClient().getBlobClient(file.getName());
                 long fileSize = Files.size(file.toPath());
                 long uploadedBytes = 0;
+
 
                 try (FileInputStream fileInputStream = new FileInputStream(file);
                      OutputStream blobOutputStream = blobClient.getBlockBlobClient().getBlobOutputStream()) {
@@ -268,7 +286,6 @@ public class DB_GUI_Controller implements Initializable {
                         updateProgress(progress, 100);
                     }
                 }
-
                 return null;
             }
         };
@@ -277,7 +294,6 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     protected void addRecord() {
         showSomeone();
-        //displayRandomCatImage(randomCatImgView);
     }
 
     //This method needs love / is throwing issues -> Can I fix this to give me the id of a selected user to edit in TV?
@@ -410,10 +426,12 @@ public class DB_GUI_Controller implements Initializable {
         boolean firstNameValid = !f_NameVldLbl.isVisible() && first_name != null && !first_name.getText().trim().isEmpty();
         boolean lastNameValid = !l_NameVldLbl.isVisible() && l_NameVldLbl != null && !last_name.getText().trim().isEmpty();
         boolean emailValid = !emailVldLbl.isVisible() && email != null && !email.getText().trim().isEmpty();
-        boolean majorSelected = majorComboBox.getValue() != null; // Check if a major is selected
+       // boolean majorSelected = majorComboBox.getValue() != null; // Check if a major is selected
+        //Testing condition values in log
+      //  System.out.println("\nSTART TEST\nfname " + firstNameValid + "\nlname "+ lastNameValid+"\nemail "+ emailValid +"\nmajor " +majorComboBox.getValue());
 
-
-        addBtn.setDisable(!(firstNameValid && lastNameValid && !imageURL.getText().isEmpty() && emailValid && majorComboBox.getValue() != null));
+        //&& !imageURL.getText().isEmpty()
+        addBtn.setDisable(!(firstNameValid && lastNameValid  && emailValid && majorComboBox.getValue() != null));
     }
 
     public void displayRandomCatImage(ImageView randomCatImgView) {

@@ -2,20 +2,32 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f0fcf0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea layoutX="6.0" layoutY="51.0" prefHeight="343.0" prefWidth="584.0" text="Put readme here" wrapText="true">
+      <TextArea layoutX="6.0" layoutY="51.0" prefHeight="343.0" prefWidth="584.0" style="-fx-background-color: #f9f0fc;" text="o&#9;Theme : OFFICIAL CAT DISTRIBUTION SYSTEM FOR STUDENTS&#10;School is a stressful time, so I’ve created a system that allows official Farmingdale students to sign up for the unofficially deemed “Cat Distribution System” which supposedly exists in real life. This phenomenon is seen when an individual goes about their regular every day life doing nothing extraordinary in their daily routine, when a cat suddenly runs up to them and decides that this person now owns a cat. The mechanisms behind this system are mysterious and poorly understood, but I think students need the extra support, so this is where they can sign up for fate. Cat themes and a randomly assigned cat image buddy on the DB_Interface page (a new cat is given each login) to simulate this phenomenon we all desire.&#10;&#10;Other additions :&#10;&#10;o&#9;Enums used for Department TextField autofill based on major selection in drop down menu for user convenience – Enum values since the values are static, so I could link the department code for each major and retrieve based on the Drop Down selection&#10;&#10;o&#9;Sign up validation with double password verification to ensure a user does not misenter their password and create an account they cannot access.&#10;&#10;" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </TextArea>
-      <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="11.0" prefHeight="44.0" prefWidth="542.0" text="Developer: Selin Saracoglu">
+      <Label alignment="TOP_LEFT" layoutX="120.0" layoutY="11.0" prefHeight="44.0" prefWidth="339.0" text="Developer: Selin Saracoglu">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <ImageView fitHeight="44.0" fitWidth="100.0" layoutX="61.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cats-04.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="44.0" fitWidth="100.0" layoutX="459.0" layoutY="11.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cats-04.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

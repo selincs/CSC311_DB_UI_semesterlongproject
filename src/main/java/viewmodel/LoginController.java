@@ -90,7 +90,6 @@ public class LoginController {
             //and implement that somehow
             scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setMaximized(true);
             window.setScene(scene);
             window.show();
         } catch (Exception e) {
