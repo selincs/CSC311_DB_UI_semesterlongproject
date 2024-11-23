@@ -7,7 +7,6 @@ import model.Person;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class CSVImporter {
     public static ObservableList<Person> importCSV(String filePath) {
@@ -22,24 +21,18 @@ public class CSVImporter {
                     String firstName = data[0].replaceAll("\"", "");
                     String lastName = data[1].replaceAll("\"", "");
                     String department = data[2].replaceAll("\"", "");
-                    if (firstName.equals("First Name") && lastName.equals("Last Name") && department.equals("Department")) {
+                    if (firstName.trim().equals("First Name") && lastName.trim().equals("Last Name") && department.trim().equals("Department")) {
                         continue; //header row, skip insert after checking for stray ""
                     }
                     String majorString = data[3].replaceAll("\"", "");
-                    Major major = null;
-                    try {
-                        major = Major.valueOf(data[3].toUpperCase());
-                        System.out.println(Major.valueOf(data[3].toUpperCase()));
-                    } catch (IllegalArgumentException e) {
-                        System.err.println("Invalid Major: " + data[3] + ". Defaulting to UNKNOWN.");
-                        major = Major.UNDECIDED; // Defaulting data load error to default undecided major enum
+                    String email = data[4].replaceAll("\"", "");
+                    String imageURL = data[5].replaceAll("\"", "");
+                    if (imageURL.isEmpty()) {
+                        imageURL = "default";
                     }
 
-                    String email = data[4].replaceAll("\"", "");;
-                    String imageURL = data[5].replaceAll("\"", "");;
-
                     // Create a Person object and add it to the list
-                    Person person = new Person(firstName, lastName, department, major, email, imageURL);
+                    Person person = new Person(firstName, lastName, department, majorString, email, imageURL);
                     persons.add(person);
                 }
             }

@@ -145,6 +145,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     void exportCSVFile(ActionEvent event) throws IOException {
         // Export data, choose where to Save with FileChooser
+        userUpdateLbl.setText("Beginning CSV File Export!");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save CSV File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -156,8 +157,9 @@ public class DB_GUI_Controller implements Initializable {
             // Call the exportToCSV method in DBConnectivityClass
             cnUtil.exportToCSV(file.getAbsolutePath());
         } else {
-            System.out.println("Export canceled by user.");
+            userUpdateLbl.setText("Export Cancelled");
         }
+        userUpdateLbl.setText("CSV File Exported!");
     }
 
     @FXML

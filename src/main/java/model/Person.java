@@ -23,6 +23,15 @@ public class Person {
         this.imageURL = imageURL;
     }
 
+    public Person(String firstName, String lastName, String department, String majorDisplayName, String email, String imageURL) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.department = department;
+        this.major = Major.getByDisplayName(majorDisplayName);
+        this.email = email;
+        this.imageURL = imageURL;
+    }
+
     public Person(Integer id, String firstName, String lastName, String department, Major major, String email,  String imageURL) {
         this.id = id;
         this.firstName = firstName;
