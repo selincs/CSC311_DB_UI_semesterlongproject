@@ -58,7 +58,7 @@
                   <TextField fx:id="usernameTF" promptText="Your unique username!!" />
                </children>
             </HBox>
-            <Label fx:id="usernameVldLbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Username invalid, please try a different username with at least 4 characters." textFill="RED">
+            <Label fx:id="usernameVldLbl" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="Username invalid, please try a username with 4-18 characters." textFill="RED">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -123,6 +123,16 @@
          </children></VBox>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="9">
             <children>
+            <Label fx:id="invalidUsernameLbl" text="That username already exists. Please try again." textFill="RED">
+               <font>
+                  <Font name="Harlow Solid Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="accCreatedLbl" text="Account Successfully Created!" textFill="#3ecf84">
+               <font>
+                  <Font name="Harlow Solid Italic" size="18.0" />
+               </font>
+            </Label>
                 <Button fx:id="newAccountBtn" mnemonicParsing="false" onAction="#createNewAccount" prefHeight="43.0" prefWidth="199.0" style="-fx-background-color: green; -fx-border-color: BLACK;" text="Create New Account" textAlignment="CENTER" textFill="WHITE">
                     <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />

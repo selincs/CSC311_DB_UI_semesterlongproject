@@ -6,7 +6,7 @@ import java.util.prefs.Preferences;
 public class User implements Serializable {
     private String username;
     private String password;
-    private String privileges;
+  //  private String privileges;
 
     //Lets just try logging in without privileges first
     //Anon user created for validating login against serialized users
@@ -16,27 +16,34 @@ public class User implements Serializable {
     }
 
     //For signup
-    public User(String username, String password, String privileges) {
-        this.username = username;
-        this.password = password;
-        this.privileges = privileges;
-        Preferences userPreferences = Preferences.userRoot();
-        userPreferences.put("USERNAME",username);
-        userPreferences.put("PASSWORD",password);
-        userPreferences.put("PRIVILEGES",privileges);
-    }
+//    public User(String username, String password, String privileges) {
+//        this.username = username;
+//        this.password = password;
+//        this.privileges = privileges;
+//        Preferences userPreferences = Preferences.userRoot();
+//        userPreferences.put("USERNAME",username);
+//        userPreferences.put("PASSWORD",password);
+//        userPreferences.put("PRIVILEGES",privileges);
+//    }
 
     public String getUsername() {
         return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getPrivileges() {
-        return this.privileges;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
+//    public String getPrivileges() {
+//        return this.privileges;
+//    }
 
     public String toString() {
         return "Username: " + username + " Password: " + password;

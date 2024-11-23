@@ -29,26 +29,26 @@
                         <Menu mnemonicParsing="false" styleClass="menu_options" text="File">
                             <items>
                                 <MenuItem fx:id="newItem" mnemonicParsing="false" onAction="#addRecord" styleClass="menu_items" text="New User" />
-                                <MenuItem fx:id="ChangePic" mnemonicParsing="false" onAction="#showImage" styleClass="menu_items" text="Change Pic" />
+                                <MenuItem fx:id="changePic" mnemonicParsing="false" onAction="#showImage" styleClass="menu_items" text="Change Profile Picture" />
                                 <MenuItem fx:id="logOut" mnemonicParsing="false" onAction="#logOut" styleClass="menu_items" text="Log out" />
                                 <MenuItem mnemonicParsing="false" onAction="#closeApplication" styleClass="menu_items" text="Exit Program" />
                             </items>
                         </Menu>
                   <Menu mnemonicParsing="false" styleClass="menu_options" text="Edit">
                      <items>
-                        <MenuItem fx:id="editItem" mnemonicParsing="true" styleClass="menu_items" text="Edit">
+                        <MenuItem fx:id="editItem" mnemonicParsing="true" onAction="#editRecord" styleClass="menu_items" text="Edit">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
-                        <MenuItem fx:id="deleteItem" mnemonicParsing="true" styleClass="menu_items" text="Delete">
+                        <MenuItem fx:id="deleteItem" mnemonicParsing="true" onAction="#deleteRecord" styleClass="menu_items" text="Delete">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
-                        <MenuItem fx:id="ClearItem" mnemonicParsing="false" styleClass="menu_items" text="Clear">
+                        <MenuItem fx:id="clearItem" mnemonicParsing="false" onAction="#clearForm" styleClass="menu_items" text="Clear">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="R" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
-                        <MenuItem fx:id="CopyItem" mnemonicParsing="false" styleClass="menu_items" text="Copy">
+                        <MenuItem fx:id="copyItem" mnemonicParsing="false" styleClass="menu_items" text="Copy">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator></MenuItem>
@@ -69,7 +69,10 @@
                         <Menu mnemonicParsing="false" styleClass="menu_options" text="Help">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="Help" />
-                        <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#displayAbout" styleClass="menu_items" text="About">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator></MenuItem>
                             </items>
                         </Menu>
                     </menus>

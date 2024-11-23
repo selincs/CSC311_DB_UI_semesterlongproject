@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class SignUpController {
 
     @FXML
-    private Label usernameLbl, usernameVldLbl, pwLbl, pwVldLbl, dobLbl, dobVldLbl, confirmPwLbl, confirmPwVldLbl;
+    private Label usernameLbl, usernameVldLbl, pwLbl, pwVldLbl, dobLbl, dobVldLbl, confirmPwLbl, confirmPwVldLbl, accCreatedLbl, invalidUsernameLbl;
 
     @FXML
     private TextField usernameTF, pwTF, confirmPwTF, dobTF;
@@ -31,6 +31,11 @@ public class SignUpController {
 
     public void initialize() {
         usernameVldLbl.setVisible(false);
+        accCreatedLbl.setVisible(false);
+        accCreatedLbl.setManaged(false);
+        invalidUsernameLbl.setVisible(false);
+        invalidUsernameLbl.setManaged(false);
+
         usernameTF.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {  // Focus lost
                 validateUsername();
@@ -67,25 +72,31 @@ public class SignUpController {
 
     public void createNewAccount(ActionEvent actionEvent) {
         //Validation goes here
-        for (int i = 0; i < UserSession.getInstance().getUserList().size(); i++) {
-            if (UserSession.getInstance().getUserList().get(i).getUsername().equalsIgnoreCase(usernameTF.getText())) {
-//                if (lbAccountCreated.isVisible()) {
-//                    lbAccountCreated.setVisible(false);
-//                }
-//                lbInvalidUsername.setVisible(true);
-//                break;
-//            }
-//            if (i == UserSession.getInstance().getUserList().size() - 1) {
-//                UserSession.getInstance().getUserList().add(new User(usernameTF.getText(), pwTF.getText()));
-//                if (lbInvalidUsername.isVisible()) {
-//                    lbInvalidUsername.setVisible(false);
-//                }
-//                lbAccountCreated.setVisible(true);
-//                btnCreate.setVisible(false);
-//                btnReturn.setVisible(true);
-//                UserSession.getInstance().saveUserList();
-//                break;
+        for (int i = 0; i < UserSession.getInstance().userList.size(); i++) {
+            if (UserSession.getInstance().userList.get(i).getUsername().equalsIgnoreCase(usernameTF.getText())) {
+                if (accCreatedLbl.isVisible()) {
+                    accCreatedLbl.setVisible(false);
+                    accCreatedLbl.setManaged(false);
+                }
+                invalidUsernameLbl.setVisible(true);
+                invalidUsernameLbl.setManaged(true);
+                System.out.println("Acc creation invalid msg");
+                break;
             }
+            if (i == UserSession.getInstance().userList.size() - 1) {
+                UserSession.getInstance().userList.add(new User(usernameTF.getText(), pwTF.getText()));
+                if (invalidUsernameLbl.isVisible()) {
+                    invalidUsernameLbl.setVisible(false);
+                    invalidUsernameLbl.setManaged(false);
+                }
+                System.out.println("Account creation msg");
+                accCreatedLbl.setVisible(true);
+                accCreatedLbl.setManaged(true);
+                //disable create button after creation?
+                UserSession.getInstance().saveUserList();
+                break;
+            }
+            System.out.println("Method end");
         }
 
         //If account creation successful

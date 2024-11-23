@@ -54,7 +54,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     MenuBar menuBar;
     @FXML
-    private MenuItem importCSVmi, exportCSVmi, ChangePic, ClearItem, CopyItem, deleteItem, editItem, logOut, newItem;
+    private MenuItem importCSVmi, exportCSVmi, changePic, clearItem, copyItem, deleteItem, editItem, logOut, newItem;
     @FXML
     private TableView<Person> tv;
     @FXML
@@ -81,6 +81,11 @@ public class DB_GUI_Controller implements Initializable {
             //disable edit + delete button unless a record is selected
             editBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             deleteBtn.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
+
+            //disable menu items based on conditions
+            editItem.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
+            deleteItem.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
+            copyItem.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
 
             //majorComboBox.getItems().setAll(Major.values());
             majorComboBox.setItems(FXCollections.observableArrayList(Major.values()));
@@ -167,7 +172,7 @@ public class DB_GUI_Controller implements Initializable {
         majorComboBox.setPromptText("Select a Major");
         email.setText("");
         imageURL.setText("");
-        userUpdateLbl.setText("[User Information]");
+        userUpdateLbl.setText("[User Information Reset]");
         validateAddUser();
     }
 
@@ -363,8 +368,6 @@ public class DB_GUI_Controller implements Initializable {
                     results.fname + " " + results.lname + " " + results.major);
         });
     }
-
- //   private static enum Major {BUSINESS, CSC, CPIS, Mathematics}
 
     private static class Results {
 

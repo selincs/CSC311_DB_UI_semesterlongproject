@@ -9,13 +9,13 @@ import java.util.prefs.Preferences;
 public class UserSession {
 
     private static UserSession instance = null;
-
+    public ArrayList<User> userList;
     //can probably move these fields to user class
-    private String userName;
-    private String password;
-    private String privileges;
+//    private String userName;
+//    private String password;
+//    private String privileges;
     //only class in this at end besides instance
-    ArrayList<User> userList;
+
 
     //Takes user? or nothing?
     private UserSession(/*String userName, String password, String privileges*/) {
@@ -36,6 +36,7 @@ public class UserSession {
     //First call on Log In
     public static UserSession getInstance(/*String userName, String password, String privileges*/) {
         if(instance == null) {
+            //only need to synchronize the first creation, all others just return the instance
             synchronized (UserSession.class) {
                 //new user? do i really need to put a user in?
                 if(instance == null) {
@@ -57,35 +58,32 @@ public class UserSession {
 */
     //saveUserList on new account creation (sign up GUI)
     public void saveUserList() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userList.dat"));) {
-            oos.writeObject(instance.userList);
-        } catch (IOException ioe) {
-            System.out.println("save user list ioe exception");
-        } catch (Exception e) {
-            System.out.println("save user list e exception");
+        File file = new File("userList.dat");
+        System.out.println("File existence: " + file.exists());
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+            oos.writeObject(getInstance().userList);
+            System.out.println("User list saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving user list: " + e.getMessage());
         }
     }
     //read user list on program start to load valid users
     public void readUserList() {
-
         File file = new File("userList.dat");
+        System.out.println("File existence: " + file.exists());
         if (!file.exists()) {
             System.out.println("No existing user list found. Starting with an empty list.");
             userList = new ArrayList<>();
-            return;
+            return; // Exit early since there’s no file to read
         }
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userList.dat"));) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             userList = (ArrayList<User>) ois.readObject();
-        } catch (IOException ioe) {
-            System.out.println("read user list ioe exception");
-        } catch (Exception e) {
-            System.out.println("read user list e exception");
+            System.out.println("User list loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error reading user list: " + e.getMessage());
+            userList = new ArrayList<>(); // Initialize to empty list on failure
         }
-    }
-
-    public ArrayList<User> getUserList() {
-        return userList;
     }
 
     //Used in login to match user in UserSession with userIdx()
@@ -112,7 +110,7 @@ public class UserSession {
 //    public String getPrivileges() {
 //        return this.privileges;
 //    }
-
+/* change to user = null once it works
     //probably need to change this to user for my implementation but shouldnt matter rn, never called
     public synchronized void cleanUserSession() {
         this.userName = "";// or null
@@ -128,4 +126,6 @@ public class UserSession {
                 ", privileges=" + this.privileges +
                 '}';
     }
+
+ */
 }
