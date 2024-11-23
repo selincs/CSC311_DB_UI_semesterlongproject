@@ -217,7 +217,6 @@ public class DB_GUI_Controller implements Initializable {
         data.remove(p);
         data.add(index, p2);
         tv.getSelectionModel().select(index);
-        System.out.println("Edited?");
         userUpdateLbl.setText("User Successfully Edited!");
     }
 
