@@ -1,3 +1,5 @@
+OFFICIAL CAT DISTRIBUTION SYSTEM FOR STUDENTS
+
 Program allows an individual to sign up for an account, and then log in to that account to begin inserting records in to a table view and database via GUI and keyboard commands. Importing data and exporting data from CSV files is supported. 
 User may upload profile pictures. Themed around letting students sign up for fate's mysterious cat distribution system in an effort to send emotional support cats to students in need :)
 
