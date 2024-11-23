@@ -26,9 +26,11 @@ import service.MyLogger;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -139,6 +141,57 @@ public class DB_GUI_Controller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    void exportCSVFile(ActionEvent event) throws IOException {
+        // Export data, choose where to Save with FileChooser
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        // Show save dialog and get the selected file
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            // Call the exportToCSV method in DBConnectivityClass
+            cnUtil.exportToCSV(file.getAbsolutePath());
+        } else {
+            System.out.println("Export canceled by user.");
+        }
+    }
+
+    @FXML
+    void importCSVFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open CSV File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            try {
+                userUpdateLbl.setText("CSV File being imported...");
+                // Use the updated CSVImporter
+                ObservableList<Person> importedPersons = CSVImporter.importCSV(file.getAbsolutePath());
+
+                for (Person person : importedPersons) {
+                    cnUtil.insertUser(person); // Add to the database
+                    data.add(person);         // Update the UI
+                }
+
+                System.out.println("CSV file imported successfully!");
+
+            } catch (Exception e) {
+                System.err.println("Error importing CSV file: " + e.getMessage());
+                userUpdateLbl.setText("CSV File Importing Error");
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Import canceled by user.");
+        }
+        userUpdateLbl.setText("CSV File Finished Importing!");
+    }
+
 
     @FXML
     protected void addNewRecord() {

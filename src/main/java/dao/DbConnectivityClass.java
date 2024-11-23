@@ -6,25 +6,46 @@ import model.Person;
 import service.MyLogger;
 import viewmodel.Major;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 public class DbConnectivityClass {
     final static String DB_NAME="CSC311_BD_TEMP";
         MyLogger lg= new MyLogger();
-//        final static String SQL_SERVER_URL = "jdbc:mysql://server.mariadb.database.azure.com";//update this server name
-//        final static String DB_URL = "jdbc:mysql://server.mariadb.database.azure.com/"+DB_NAME;//update this database name
-//        final static String USERNAME = "csc311admin@server";// update this username
-//        final static String PASSWORD = "FARM";// update this password
-                                                   //csc311saracogluserver.mysql.database.azure.com
         final static String SQL_SERVER_URL = "jdbc:mysql://csc311saracogluserver.mysql.database.azure.com";
         final static String DB_URL = SQL_SERVER_URL+"/"+DB_NAME;
         final static String USERNAME = "selins";
         final static String PASSWORD = "Rock1994";
-                                //selins
         private final ObservableList<Person> data = FXCollections.observableArrayList();
 
-        // Method to retrieve all data from the database and store it into an observable list to use in the GUI tableview.
+        public void exportToCSV(String filePath) throws IOException {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                // Write the CSV header
+                writer.write("First Name,Last Name,Department,Major,Email,Image URL");
+                writer.newLine();
 
+                // Write each person's data as a row in the CSV
+                for (Person person : data) {
+                    String row = String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+                            person.getFirstName(),
+                            person.getLastName(),
+                            person.getDepartment(),
+                            person.getMajor() != null ? person.getMajor().getDisplayName() : "",
+                            person.getEmail(),
+                            person.getImageURL());
+                    writer.write(row);
+                    writer.newLine();
+                }
 
+                System.out.println("Export completed successfully to: " + filePath);
+            } catch (IOException e) {
+                System.err.println("Error writing to CSV: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+    // Method to retrieve all data from the database and store it into an observable list to use in the GUI tableview.
         public ObservableList<Person> getData() {
             connectToDatabase();
             try {

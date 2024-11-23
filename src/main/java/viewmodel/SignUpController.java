@@ -72,8 +72,12 @@ public class SignUpController {
 
     public void createNewAccount(ActionEvent actionEvent) {
         //Validation goes here
+        System.out.println("Create account pressed");
+        System.out.println("User Session list size: "+UserSession.getInstance().userList.size());
         for (int i = 0; i < UserSession.getInstance().userList.size(); i++) {
+            System.out.println("For loop entered");
             if (UserSession.getInstance().userList.get(i).getUsername().equalsIgnoreCase(usernameTF.getText())) {
+                System.out.println("If statement entered on create button press");
                 if (accCreatedLbl.isVisible()) {
                     accCreatedLbl.setVisible(false);
                     accCreatedLbl.setManaged(false);
@@ -84,6 +88,7 @@ public class SignUpController {
                 break;
             }
             if (i == UserSession.getInstance().userList.size() - 1) {
+                System.out.println("Second create if statement entered");
                 UserSession.getInstance().userList.add(new User(usernameTF.getText(), pwTF.getText()));
                 if (invalidUsernameLbl.isVisible()) {
                     invalidUsernameLbl.setVisible(false);

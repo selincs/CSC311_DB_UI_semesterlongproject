@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
-public class UserSession {
+public class UserSession implements Serializable {
 
     private static UserSession instance = null;
     public ArrayList<User> userList;
@@ -38,9 +38,9 @@ public class UserSession {
         if(instance == null) {
             //only need to synchronize the first creation, all others just return the instance
             synchronized (UserSession.class) {
-                //new user? do i really need to put a user in?
                 if(instance == null) {
-                    instance = new UserSession(/*userName, password, privileges*/);
+                    //new user? do i need to put a user in? /*userName, password, privileges*/
+                    instance = new UserSession();
                 }
             }
         }
@@ -60,7 +60,7 @@ public class UserSession {
     public void saveUserList() {
         File file = new File("userList.dat");
         System.out.println("File existence: " + file.exists());
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userList.dat"))) {
             oos.writeObject(getInstance().userList);
             System.out.println("User list saved successfully.");
         } catch (IOException e) {
@@ -77,12 +77,12 @@ public class UserSession {
             return; // Exit early since there’s no file to read
         }
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userList.dat"))) {
             userList = (ArrayList<User>) ois.readObject();
             System.out.println("User list loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error reading user list: " + e.getMessage());
-            userList = new ArrayList<>(); // Initialize to empty list on failure
+            userList = new ArrayList<>(); // Create empty list on failure
         }
     }
 

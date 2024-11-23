@@ -14,7 +14,8 @@ public enum Major {
     BIOLOGY("Biology", "BIO"),
     BUSINESS("Business", "BUS"),
     ART("Art", "ART"),
-    HISTORY("History", "HIS");
+    HISTORY("History", "HIS"),
+    UNDECIDED("Undecided", "UND");
 
     private final String displayName;
     private final String majorCode;

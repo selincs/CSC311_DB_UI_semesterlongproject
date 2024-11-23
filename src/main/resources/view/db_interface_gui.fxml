@@ -56,8 +56,8 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="CSV Files">
                     <items>
-                      <MenuItem fx:id="importCSVmi" mnemonicParsing="false" text="Import CSV File" />
-                        <MenuItem fx:id="exportCSVmi" mnemonicParsing="false" text="Export CSV File" />
+                      <MenuItem fx:id="importCSVmi" mnemonicParsing="false" onAction="#importCSVFile" text="Import CSV File" />
+                        <MenuItem fx:id="exportCSVmi" mnemonicParsing="false" onAction="#exportCSVFile" text="Export CSV File" />
                     </items>
                   </Menu>
                         <Menu mnemonicParsing="false" styleClass="menu_options" text="Theme">
