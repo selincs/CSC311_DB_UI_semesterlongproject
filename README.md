@@ -2,8 +2,11 @@ OFFICIAL CAT DISTRIBUTION SYSTEM FOR STUDENTS
 
 Program allows an individual to sign up for an account, and then log in to that account to begin inserting records in to a table view and database via GUI and keyboard commands. Importing data and exporting data from CSV files is supported. 
 User may upload profile pictures. Themed around letting students sign up for fate's mysterious cat distribution system in an effort to send emotional support cats to students in need :)
+The program has trouble making edits to records without selecting a value from the ComboBox drop down list before editing a selection, sorry about that!
+
 
 Personal Additions :
+
 o	Theme : OFFICIAL CAT DISTRIBUTION SYSTEM FOR STUDENTS
 School is a stressful time, so I’ve created a system that allows Farmingdale students to put their name forward for the unofficially deemed “Cat Distribution System” which supposedly exists in real life. 
 This phenomenon is seen when an individual goes about their regular every day life doing nothing extraordinary in their daily routine, when a cat suddenly runs up to them and decides that this person now owns a cat. 
