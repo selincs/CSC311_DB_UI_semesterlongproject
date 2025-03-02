@@ -8,6 +8,7 @@ The program has trouble making edits to records without selecting a value from t
 Personal Additions :
 
 o	Theme : OFFICIAL CAT DISTRIBUTION SYSTEM FOR STUDENTS
+
 School is a stressful time, so I’ve created a system that allows Farmingdale students to put their name forward for the unofficially deemed “Cat Distribution System” which supposedly exists in real life. 
 This phenomenon is seen when an individual goes about their regular every day life doing nothing extraordinary in their daily routine, when a cat suddenly runs up to them and decides that this person now owns a cat. 
 The mechanisms behind this system are mysterious and poorly understood, but I think students need the extra support, so this is where they can sign up for fate. 
