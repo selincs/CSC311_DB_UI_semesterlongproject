@@ -19,4 +19,4 @@ o	Enums used for Department TextField autofill based on major selection in drop 
 
 o	Sign up validation with double password verification to ensure a user does not misenter their password and create an account they cannot access.
 
-o	Attempted to integrate Serialization to UserSession class to host User accounts locally and provide Sign Up and Login functionality while maintaining a active and synchronized logged in state. (Unable to complete)
+o	Attempted to integrate Serialization to UserSession class to host User accounts locally and provide Sign Up and Login functionality while maintaining a active and synchronized logged in state. (Incomplete)
